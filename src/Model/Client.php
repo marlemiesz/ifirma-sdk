@@ -7,18 +7,18 @@ class Client
 {
     
     public function __construct(
-        private string $name,
+        private string  $name,
         private ?string $identifier,
-        private string $uePrefix,
-        private string $nip,
-        private string $street,
-        private string $postalCode,
-        private string $country,
-        private string $city,
-        private string $email,
-        private string $phone,
-        private bool $isPhysicalPerson = false
-        
+        private string  $uePrefix,
+        private string  $nip,
+        private string  $street,
+        private string  $postalCode,
+        private string  $country,
+        private string  $city,
+        private string  $email,
+        private string  $phone,
+        private bool    $isPhysicalPerson = false
+    
     )
     {
     }
