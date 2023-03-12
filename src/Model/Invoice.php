@@ -2,271 +2,165 @@
 
 namespace Marlemiesz\Ifirma\Model;
 
+use Marlemiesz\Ifirma\Enum\InvoiceIssuingMethodEnum;
+use Marlemiesz\Ifirma\Enum\PaymentMethodEnum;
+use Marlemiesz\Ifirma\Enum\SaleDateFormatEnum;
+use Marlemiesz\Ifirma\Enum\SignatureTypeEnum;
+
 class Invoice
 {
     public function __construct(
-        private int     $amount_paid,
-        private string  $numbering_from,
-        private ?string $bank_account_number,
-        private string  $issue_date,
-        private string  $place_of_issue,
-        private string  $sale_date,
-        private string  $sale_date_format,
-        private ?string $payment_deadline,
-        private string  $payment_method,
-        private string  $series_name,
-        private string  $template_name,
-        private string  $signature_type,
-        private string  $signature_recipient,
-        private string  $signature_issuer,
-        private string  $notes,
-        private bool    $visible_gios_number,
-        private ?string $number,
-        private Client  $client,
-        private array   $positions
+        private float                    $amount_paid,
+        private float                    $amount_paid_in_invoice,
+        private InvoiceIssuingMethodEnum $invoice_issuing_method,
+        private \DateTime                $issue_date,
+        private \DateTime                $sale_date,
+        private SaleDateFormatEnum       $sale_date_format,
+        private PaymentMethodEnum        $payment_method,
+        private SignatureTypeEnum        $signature_type,
+        private bool                     $visible_gios_number,
+        private Client                   $client,
+        private array                    $positions,
+        private ?string                  $bank_account_number = null,
+        private ?string                  $place_of_issue = null,
+        private \DateTime|null           $payment_deadline = null,
+        private string|null              $series_name = null,
+        private string|null              $template_name = null,
+        private string|null              $signature_recipient = null,
+        private string|null              $signature_issuer = null,
+        private string|null              $notes = null,
+        private ?string                  $number = null,
     )
     {
         $this->validPositions();
     }
     
     /**
-     * @return int
+     * @return float
      */
-    public function getAmountPaid(): int
+    public function getAmountPaid(): float
     {
         return $this->amount_paid;
     }
     
     /**
-     * @param int $amount_paid
+     * @param float $amount_paid
      */
-    public function setAmountPaid(int $amount_paid): void
+    public function setAmountPaid(float $amount_paid): void
     {
         $this->amount_paid = $amount_paid;
     }
     
     /**
-     * @return string
+     * @return float
      */
-    public function getNumberingFrom(): string
+    public function getAmountPaidInInvoice(): float
     {
-        return $this->numbering_from;
+        return $this->amount_paid_in_invoice;
     }
     
     /**
-     * @param string $numbering_from
+     * @param float $amount_paid_in_invoice
      */
-    public function setNumberingFrom(string $numbering_from): void
+    public function setAmountPaidInInvoice(float $amount_paid_in_invoice): void
     {
-        $this->numbering_from = $numbering_from;
+        $this->amount_paid_in_invoice = $amount_paid_in_invoice;
     }
     
     /**
-     * @return string|null
+     * @return InvoiceIssuingMethodEnum
      */
-    public function getBankAccountNumber(): ?string
+    public function getInvoiceIssuingMethod(): InvoiceIssuingMethodEnum
     {
-        return $this->bank_account_number;
+        return $this->invoice_issuing_method;
     }
     
     /**
-     * @param string|null $bank_account_number
+     * @param InvoiceIssuingMethodEnum $invoice_issuing_method
      */
-    public function setBankAccountNumber(?string $bank_account_number): void
+    public function setInvoiceIssuingMethod(InvoiceIssuingMethodEnum $invoice_issuing_method): void
     {
-        $this->bank_account_number = $bank_account_number;
+        $this->invoice_issuing_method = $invoice_issuing_method;
     }
     
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getIssueDate(): string
+    public function getIssueDate(): \DateTime
     {
         return $this->issue_date;
     }
     
     /**
-     * @param string $issue_date
+     * @param \DateTime $issue_date
      */
-    public function setIssueDate(string $issue_date): void
+    public function setIssueDate(\DateTime $issue_date): void
     {
         $this->issue_date = $issue_date;
     }
     
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getPlaceOfIssue(): string
-    {
-        return $this->place_of_issue;
-    }
-    
-    /**
-     * @param string $place_of_issue
-     */
-    public function setPlaceOfIssue(string $place_of_issue): void
-    {
-        $this->place_of_issue = $place_of_issue;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getSaleDate(): string
+    public function getSaleDate(): \DateTime
     {
         return $this->sale_date;
     }
     
     /**
-     * @param string $sale_date
+     * @param \DateTime $sale_date
      */
-    public function setSaleDate(string $sale_date): void
+    public function setSaleDate(\DateTime $sale_date): void
     {
         $this->sale_date = $sale_date;
     }
     
     /**
-     * @return string
+     * @return SaleDateFormatEnum
      */
-    public function getSaleDateFormat(): string
+    public function getSaleDateFormat(): SaleDateFormatEnum
     {
         return $this->sale_date_format;
     }
     
     /**
-     * @param string $sale_date_format
+     * @param SaleDateFormatEnum $sale_date_format
      */
-    public function setSaleDateFormat(string $sale_date_format): void
+    public function setSaleDateFormat(SaleDateFormatEnum $sale_date_format): void
     {
         $this->sale_date_format = $sale_date_format;
     }
     
     /**
-     * @return string|null
+     * @return PaymentMethodEnum
      */
-    public function getPaymentDeadline(): ?string
-    {
-        return $this->payment_deadline;
-    }
-    
-    /**
-     * @param string|null $payment_deadline
-     */
-    public function setPaymentDeadline(?string $payment_deadline): void
-    {
-        $this->payment_deadline = $payment_deadline;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getPaymentMethod(): string
+    public function getPaymentMethod(): PaymentMethodEnum
     {
         return $this->payment_method;
     }
     
     /**
-     * @param string $payment_method
+     * @param PaymentMethodEnum $payment_method
      */
-    public function setPaymentMethod(string $payment_method): void
+    public function setPaymentMethod(PaymentMethodEnum $payment_method): void
     {
         $this->payment_method = $payment_method;
     }
     
     /**
-     * @return string
+     * @return SignatureTypeEnum
      */
-    public function getSeriesName(): string
-    {
-        return $this->series_name;
-    }
-    
-    /**
-     * @param string $series_name
-     */
-    public function setSeriesName(string $series_name): void
-    {
-        $this->series_name = $series_name;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getTemplateName(): string
-    {
-        return $this->template_name;
-    }
-    
-    /**
-     * @param string $template_name
-     */
-    public function setTemplateName(string $template_name): void
-    {
-        $this->template_name = $template_name;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getSignatureType(): string
+    public function getSignatureType(): SignatureTypeEnum
     {
         return $this->signature_type;
     }
     
     /**
-     * @param string $signature_type
+     * @param SignatureTypeEnum $signature_type
      */
-    public function setSignatureType(string $signature_type): void
+    public function setSignatureType(SignatureTypeEnum $signature_type): void
     {
         $this->signature_type = $signature_type;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getSignatureRecipient(): string
-    {
-        return $this->signature_recipient;
-    }
-    
-    /**
-     * @param string $signature_recipient
-     */
-    public function setSignatureRecipient(string $signature_recipient): void
-    {
-        $this->signature_recipient = $signature_recipient;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getSignatureIssuer(): string
-    {
-        return $this->signature_issuer;
-    }
-    
-    /**
-     * @param string $signature_issuer
-     */
-    public function setSignatureIssuer(string $signature_issuer): void
-    {
-        $this->signature_issuer = $signature_issuer;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getNotes(): string
-    {
-        return $this->notes;
-    }
-    
-    /**
-     * @param string $notes
-     */
-    public function setNotes(string $notes): void
-    {
-        $this->notes = $notes;
     }
     
     /**
@@ -286,6 +180,150 @@ class Invoice
     }
     
     /**
+     * @return Client
+     */
+    public function getClient(): Client
+    {
+        return $this->client;
+    }
+    
+    /**
+     * @param Client $client
+     */
+    public function setClient(Client $client): void
+    {
+        $this->client = $client;
+    }
+    
+    /**
+     * @return string|null
+     */
+    public function getBankAccountNumber(): ?string
+    {
+        return $this->bank_account_number;
+    }
+    
+    /**
+     * @param string|null $bank_account_number
+     */
+    public function setBankAccountNumber(?string $bank_account_number): void
+    {
+        $this->bank_account_number = $bank_account_number;
+    }
+    
+    /**
+     * @return string|null
+     */
+    public function getPlaceOfIssue(): ?string
+    {
+        return $this->place_of_issue;
+    }
+    
+    /**
+     * @param string|null $place_of_issue
+     */
+    public function setPlaceOfIssue(?string $place_of_issue): void
+    {
+        $this->place_of_issue = $place_of_issue;
+    }
+    
+    /**
+     * @return \DateTime|null
+     */
+    public function getPaymentDeadline(): ?\DateTime
+    {
+        return $this->payment_deadline;
+    }
+    
+    /**
+     * @param \DateTime|null $payment_deadline
+     */
+    public function setPaymentDeadline(?\DateTime $payment_deadline): void
+    {
+        $this->payment_deadline = $payment_deadline;
+    }
+    
+    /**
+     * @return string|null
+     */
+    public function getSeriesName(): ?string
+    {
+        return $this->series_name;
+    }
+    
+    /**
+     * @param string|null $series_name
+     */
+    public function setSeriesName(?string $series_name): void
+    {
+        $this->series_name = $series_name;
+    }
+    
+    /**
+     * @return string|null
+     */
+    public function getTemplateName(): ?string
+    {
+        return $this->template_name;
+    }
+    
+    /**
+     * @param string|null $template_name
+     */
+    public function setTemplateName(?string $template_name): void
+    {
+        $this->template_name = $template_name;
+    }
+    
+    /**
+     * @return string|null
+     */
+    public function getSignatureRecipient(): ?string
+    {
+        return $this->signature_recipient;
+    }
+    
+    /**
+     * @param string|null $signature_recipient
+     */
+    public function setSignatureRecipient(?string $signature_recipient): void
+    {
+        $this->signature_recipient = $signature_recipient;
+    }
+    
+    /**
+     * @return string|null
+     */
+    public function getSignatureIssuer(): ?string
+    {
+        return $this->signature_issuer;
+    }
+    
+    /**
+     * @param string|null $signature_issuer
+     */
+    public function setSignatureIssuer(?string $signature_issuer): void
+    {
+        $this->signature_issuer = $signature_issuer;
+    }
+    
+    /**
+     * @return string|null
+     */
+    public function getNotes(): ?string
+    {
+        return $this->notes;
+    }
+    
+    /**
+     * @param string|null $notes
+     */
+    public function setNotes(?string $notes): void
+    {
+        $this->notes = $notes;
+    }
+    
+    /**
      * @return string|null
      */
     public function getNumber(): ?string
@@ -301,21 +339,6 @@ class Invoice
         $this->number = $number;
     }
     
-    /**
-     * @return Client
-     */
-    public function getClient(): Client
-    {
-        return $this->client;
-    }
-    
-    /**
-     * @param Client $client
-     */
-    public function setClient(Client $client): void
-    {
-        $this->client = $client;
-    }
     
     /**
      * @return array
@@ -343,5 +366,31 @@ class Invoice
             }
         }
         return true;
+    }
+    
+    public function toPrimitive(): array
+    {
+        $positions = [];
+        foreach ($this->positions as $position) {
+            $positions[] = $position->toPrimitive();
+        }
+        return [
+            'sale_date' => $this->sale_date->format('Y-m-d'),
+            'sale_date_format' => $this->sale_date_format->getValue(),
+            'payment_method' => $this->payment_method->getValue(),
+            'signature_type' => $this->signature_type->getValue(),
+            'visible_gios_number' => $this->visible_gios_number,
+            'client' => $this->client->toPrimitive(),
+            'bank_account_number' => $this->bank_account_number,
+            'place_of_issue' => $this->place_of_issue,
+            'payment_deadline' => $this->payment_deadline ? $this->payment_deadline->format('Y-m-d') : null,
+            'series_name' => $this->series_name,
+            'template_name' => $this->template_name,
+            'signature_recipient' => $this->signature_recipient,
+            'signature_issuer' => $this->signature_issuer,
+            'notes' => $this->notes,
+            'number' => $this->number,
+            'positions' => $positions
+        ];
     }
 }
