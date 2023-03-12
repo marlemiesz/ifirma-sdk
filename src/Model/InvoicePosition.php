@@ -5,7 +5,7 @@ namespace Marlemiesz\Ifirma\Model;
 use Marlemiesz\Ifirma\Enum\VatRateEnum;
 use Marlemiesz\Ifirma\Enum\VatTypeEnum;
 
-class InvoicePosition
+class InvoicePosition implements ModelInterface
 {
     
     public function __construct(

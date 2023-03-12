@@ -7,7 +7,7 @@ use Marlemiesz\Ifirma\Enum\PaymentMethodEnum;
 use Marlemiesz\Ifirma\Enum\SaleDateFormatEnum;
 use Marlemiesz\Ifirma\Enum\SignatureTypeEnum;
 
-class Invoice
+class Invoice implements ModelInterface
 {
     public function __construct(
         private float                    $amount_paid,

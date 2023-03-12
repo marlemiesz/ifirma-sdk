@@ -3,7 +3,7 @@
 namespace Marlemiesz\Ifirma\Model;
 
 
-class Client
+class Client implements ModelInterface
 {
     
     public function __construct(
