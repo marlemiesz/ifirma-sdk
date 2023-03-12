@@ -2,33 +2,36 @@
 
 namespace Marlemiesz\Ifirma\Model;
 
+use Marlemiesz\Ifirma\Enum\VatRateEnum;
+use Marlemiesz\Ifirma\Enum\VatTypeEnum;
+
 class InvoicePosition
 {
     
     public function __construct(
-        private float  $vatRate,
+        private VatRateEnum  $vatRate,
         private int    $quantity,
         private float  $unitPrice,
         private string $name,
         private string $unit,
-        private string $pkwiu,
-        private string $vatType
+        private VatTypeEnum $vatType = VatTypeEnum::PRC,
+        private ?string $pkwiu = null,
     )
     {
     }
     
     /**
-     * @return float
+     * @return VatRateEnum
      */
-    public function getVatRate(): float
+    public function getVatRate(): VatRateEnum
     {
         return $this->vatRate;
     }
     
     /**
-     * @param float $vatRate
+     * @param VatRateEnum $vatRate
      */
-    public function setVatRate(float $vatRate): void
+    public function setVatRate(VatRateEnum $vatRate): void
     {
         $this->vatRate = $vatRate;
     }
@@ -98,34 +101,46 @@ class InvoicePosition
     }
     
     /**
-     * @return string
+     * @return VatTypeEnum
      */
-    public function getPkwiu(): string
-    {
-        return $this->pkwiu;
-    }
-    
-    /**
-     * @param string $pkwiu
-     */
-    public function setPkwiu(string $pkwiu): void
-    {
-        $this->pkwiu = $pkwiu;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getVatType(): string
+    public function getVatType(): VatTypeEnum
     {
         return $this->vatType;
     }
     
     /**
-     * @param string $vatType
+     * @param VatTypeEnum $vatType
      */
-    public function setVatType(string $vatType): void
+    public function setVatType(VatTypeEnum $vatType): void
     {
         $this->vatType = $vatType;
+    }
+    
+    /**
+     * @return string|null
+     */
+    public function getPkwiu(): ?string
+    {
+        return $this->pkwiu;
+    }
+    
+    /**
+     * @param string|null $pkwiu
+     */
+    public function setPkwiu(?string $pkwiu): void
+    {
+        $this->pkwiu = $pkwiu;
+    }
+    public function toPrimitive(): array
+    {
+        return [
+            'vatRate' => $this->vatRate->getValue(),
+            'quantity' => $this->quantity,
+            'unitPrice' => $this->unitPrice,
+            'name' => $this->name,
+            'unit' => $this->unit,
+            'vatType' => $this->vatType->getValue(),
+            'pkwiu' => $this->pkwiu,
+        ];
     }
 }

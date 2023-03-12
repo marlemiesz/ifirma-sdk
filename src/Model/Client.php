@@ -198,4 +198,21 @@ class Client
     {
         $this->isPhysicalPerson = $isPhysicalPerson;
     }
+    
+    public function toPrimitive(): array
+    {
+        return [
+            'name'             => $this->name,
+            'postalCode'       => $this->postalCode,
+            'city'             => $this->city,
+            'isPhysicalPerson' => $this->isPhysicalPerson,
+            'identifier'       => $this->identifier,
+            'email'            => $this->email,
+            'phone'            => $this->phone,
+            'country'          => $this->country,
+            'uePrefix'         => $this->uePrefix,
+            'nip'              => $this->nip,
+            'street'           => $this->street,
+        ];
+    }
 }
