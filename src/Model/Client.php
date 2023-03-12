@@ -8,16 +8,16 @@ class Client
     
     public function __construct(
         private string  $name,
-        private ?string $identifier,
-        private string  $uePrefix,
-        private string  $nip,
-        private string  $street,
         private string  $postalCode,
-        private string  $country,
         private string  $city,
-        private string  $email,
-        private string  $phone,
-        private bool    $isPhysicalPerson = false
+        private bool    $isPhysicalPerson = false,
+        private ?string $identifier = null,
+        private ?string $email = null,
+        private ?string $phone = null,
+        private ?string $country = null,
+        private ?string $uePrefix = null,
+        private ?string $nip = null,
+        private ?string $street = null,
     
     )
     {
