@@ -25,10 +25,11 @@ class GuzzleClient extends HttpClient
     {
     
         $client = $this->getClient($request);
-    
         $response = $client->request($request->getMethod()->getValue(), $request->getUri(), [
             'json' => $request->getPayload()?->toPrimitive()
         ]);
+        
+        var_dump($response->getBody()->getContents());die();
         $this->validResponse($response);
         return $request->prepareResponse(json_decode($response->getBody()->getContents(), true));
     }
@@ -59,6 +60,7 @@ class GuzzleClient extends HttpClient
         if($request->getKeyName() === KeyNameEnum::Account) {
             return $this->generateKey($this->accountKey);
         }
+        return '';
     }
     
     protected function generateKey(string $keyValue): string
@@ -74,9 +76,12 @@ class GuzzleClient extends HttpClient
             . chr(hexdec(substr($keyValue, 14, 2)));
     }
     
-    protected function prepareHashHmacSha1(string $url, string $keyName, string $keyValue): string
+    protected function prepareHashHmacSha1(string $url, string $keyName, string $keyValue, ?array $payload = null): string
     {
-        return hash_hmac('sha1', $url . $this->userName . $keyName, $this->generateKey($keyValue));
+        if($payload) {
+            $payload = json_encode($payload);
+        }
+        return hash_hmac('sha1', $url . $this->userName . $keyName . $payload, $keyValue);
     }
     
     /**
@@ -86,13 +91,18 @@ class GuzzleClient extends HttpClient
     protected function getClient(RequestInterface $request): Client
     {
         $hashedKey = $this->getKey($request);
-        $hashHmac = $this->prepareHashHmacSha1($request->getUri(), $request->getKeyName()->getValue(), $hashedKey);
+        $hashHmac = $this->prepareHashHmacSha1(
+            self::API_URL . $request->getUri(),
+            $request->getKeyName()->getValue(),
+            $hashedKey,
+            $request->getPayload()?->toPrimitive()
+        );
         $client = new Client([
             'base_uri' => self::API_URL,
             'headers' => [
-                'Accept: application/json',
-                'Content-type: application/json; charset=UTF-8',
-                'Authentication: IAPIS user=' . $this->userName . ', hmac-sha1=' . $hashHmac
+                'Accept' => 'application/json',
+                'Content-type' => 'application/json; charset=UTF-8',
+                'Authentication' => 'IAPIS user=' . $this->userName . ', hmac-sha1=' . $hashHmac
             ]
         ]);
         return $client;

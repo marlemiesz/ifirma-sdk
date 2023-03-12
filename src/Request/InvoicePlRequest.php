@@ -10,7 +10,7 @@ use Marlemiesz\Ifirma\Response\ResponseInterface;
 
 class InvoicePlRequest implements RequestInterface
 {
-    const URI = '/fakturakraj.json';
+    const URI = '/iapi/fakturakraj.json';
     
     public function __construct(
         readonly Invoice $invoice

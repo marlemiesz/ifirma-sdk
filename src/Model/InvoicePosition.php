@@ -134,13 +134,13 @@ class InvoicePosition implements ModelInterface
     public function toPrimitive(): array
     {
         return [
-            'vatRate' => $this->vatRate->getValue(),
-            'quantity' => $this->quantity,
-            'unitPrice' => $this->unitPrice,
-            'name' => $this->name,
-            'unit' => $this->unit,
-            'vatType' => $this->vatType->getValue(),
-            'pkwiu' => $this->pkwiu,
+            'StawkaVat' => $this->vatRate->toFloat(),
+            'Ilosc' => $this->quantity,
+            'CenaJednostkowa' => $this->unitPrice,
+            'NazwaPelna' => $this->name,
+            'Jednostka' => $this->unit,
+            'TypStawkiVat' => $this->vatType->getValue(),
+            'PKWiU' => $this->pkwiu,
         ];
     }
 }

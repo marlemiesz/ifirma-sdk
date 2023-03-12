@@ -375,22 +375,31 @@ class Invoice implements ModelInterface
             $positions[] = $position->toPrimitive();
         }
         return [
-            'sale_date' => $this->sale_date->format('Y-m-d'),
-            'sale_date_format' => $this->sale_date_format->getValue(),
-            'payment_method' => $this->payment_method->getValue(),
-            'signature_type' => $this->signature_type->getValue(),
-            'visible_gios_number' => $this->visible_gios_number,
-            'client' => $this->client->toPrimitive(),
-            'bank_account_number' => $this->bank_account_number,
-            'place_of_issue' => $this->place_of_issue,
-            'payment_deadline' => $this->payment_deadline ? $this->payment_deadline->format('Y-m-d') : null,
-            'series_name' => $this->series_name,
-            'template_name' => $this->template_name,
-            'signature_recipient' => $this->signature_recipient,
-            'signature_issuer' => $this->signature_issuer,
-            'notes' => $this->notes,
-            'number' => $this->number,
-            'positions' => $positions
+            'DataWystawienia' => $this->issue_date->format('Y-m-d'),
+            'FormatDatySprzedazy' => $this->sale_date_format->getValue(),
+            'DataSprzedazy' => $this->getSaleDatePrimitive(),
+            'SposobZaplaty' => $this->payment_method->getValue(),
+            'RodzajPodpisuOdbiorcy' => $this->signature_type->getValue(),
+            'WidocznyNumerGios' => $this->visible_gios_number,
+            'Kontrahent' => $this->client->toPrimitive(),
+            'NumerKontaBankowego' => $this->bank_account_number,
+            'MiejsceWystawienia' => $this->place_of_issue,
+            'TerminPlatnosci' => $this->payment_deadline ? $this->payment_deadline->format('Y-m-d') : null,
+            'NazwaSeriiNumeracji' => $this->series_name,
+            'NazwaSzablonu' => $this->template_name,
+            'PodpisOdbiorcy' => $this->signature_recipient,
+            'PodpisWystawcy' => $this->signature_issuer,
+            'Uwagi' => $this->notes,
+            'Numer' => $this->number,
+            'Pozycje' => $positions
         ];
+    }
+    
+    /**
+     * @return string
+     */
+    protected function getSaleDatePrimitive(): string
+    {
+        return $this->sale_date_format === SaleDateFormatEnum::monthly ? $this->sale_date->format('Y-m') : $this->sale_date->format('Y-m-d');
     }
 }

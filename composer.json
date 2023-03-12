@@ -16,7 +16,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Marlemiesz\\Ifirma\\": "src/"
+      "Marlemiesz\\Ifirma\\": "src/",
+      "Marlemiesz\\Ifirma\\Tests\\": "tests/"
     }
   },
   "require-dev": {
