@@ -400,6 +400,12 @@ class Invoice implements ModelInterface
      */
     protected function getSaleDatePrimitive(): string
     {
-        return $this->sale_date_format === SaleDateFormatEnum::monthly ? $this->sale_date->format('Y-m') : $this->sale_date->format('Y-m-d');
+        return
+            $this->sale_date_format === SaleDateFormatEnum::monthly
+                ?
+                $this->sale_date->format('Y-m')
+                :
+                $this->sale_date->format('Y-m-d')
+            ;
     }
 }
