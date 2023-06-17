@@ -93,4 +93,22 @@ class CreatePlInvoice
             series_name: self::INVOICE['series_name'],
         );
     }
+    
+    public static function prepareErrorInvoice(): Invoice
+    {
+        return new Invoice(
+            amount_paid: self::INVOICE['amount_paid'],
+            amount_paid_in_invoice: self::INVOICE['amount_paid_in_invoice'],
+            invoice_issuing_method: self::INVOICE['invoice_issuing_method'],
+            issue_date: new \DateTime('1991-01-01'),
+            sale_date: new \DateTime('now'),
+            sale_date_format: self::INVOICE['sale_date_format'],
+            payment_method: self::INVOICE['payment_method'],
+            signature_type: self::INVOICE['signature_type'],
+            visible_gios_number: self::INVOICE['visible_gios_number'],
+            client: self::prepareClient(),
+            positions: self::prepareInvoicePositions(),
+            series_name: self::INVOICE['series_name'],
+        );
+    }
 }
