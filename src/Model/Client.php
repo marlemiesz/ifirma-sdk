@@ -202,17 +202,17 @@ class Client implements ModelInterface
     public function toPrimitive(): array
     {
         return [
-            'Nazwa'             => $this->name,
-            'KodPocztowy'       => $this->postalCode,
-            'Miejscowosc'             => $this->city,
+            'Nazwa' => $this->name,
+            'KodPocztowy' => $this->postalCode,
+            'Miejscowosc' => $this->city,
             'OsobaFizyczna' => $this->isPhysicalPerson,
-            'Identyfikator'       => $this->identifier,
-            'Email'            => $this->email,
-            'Telefon'            => $this->phone,
-            'Kraj'          => $this->country,
-            'PrefiksUE'         => $this->uePrefix,
-            'NIP'              => $this->nip,
-            'Ulica'           => $this->street,
+            'Identyfikator' => $this->identifier,
+            'Email' => $this->email,
+            'Telefon' => $this->phone,
+            'Kraj' => $this->country,
+            'PrefiksUE' => $this->uePrefix,
+            'NIP' => $this->nip,
+            'Ulica' => $this->street,
         ];
     }
 }

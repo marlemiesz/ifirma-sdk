@@ -28,9 +28,6 @@ class GuzzleClient extends HttpClient
         $response = $client->request($request->getMethod()->getValue(), $request->getUri(), [
             'json' => $request->getPayload()?->toPrimitive()
         ]);
-        
-        var_dump($response->getBody()->getContents());die();
-        $this->validResponse($response);
         return $request->prepareResponse(json_decode($response->getBody()->getContents(), true));
     }
     

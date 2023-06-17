@@ -391,7 +391,8 @@ class Invoice implements ModelInterface
             'PodpisWystawcy' => $this->signature_issuer,
             'Uwagi' => $this->notes,
             'Numer' => $this->number,
-            'Pozycje' => $positions
+            'Pozycje' => $positions,
+            'LiczOd' => $this->invoice_issuing_method->getValue(),
         ];
     }
     
