@@ -6,6 +6,7 @@ use Marlemiesz\Ifirma\Enum\KeyNameEnum;
 use Marlemiesz\Ifirma\Enum\MethodEnum;
 use Marlemiesz\Ifirma\Model\Invoice;
 use Marlemiesz\Ifirma\Request\Payload\PayloadInterface;
+use Marlemiesz\Ifirma\Response\InvoicePlResponse;
 use Marlemiesz\Ifirma\Response\ResponseInterface;
 
 class InvoicePlRequest implements RequestInterface
@@ -41,6 +42,6 @@ class InvoicePlRequest implements RequestInterface
     
     public function prepareResponse(array $response): ResponseInterface
     {
-        // TODO: Implement prepareResponse() method.
+        return InvoicePlResponse::fromPrimitive($response);
     }
 }

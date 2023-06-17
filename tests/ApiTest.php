@@ -1,6 +1,7 @@
 <?php
 namespace Marlemiesz\Ifirma\Tests;
 use Marlemiesz\Ifirma\Api;
+use Marlemiesz\Ifirma\Exceptions\ApiException;
 use Marlemiesz\Ifirma\Tests\Helpers\CreatePlInvoice;
 use PHPUnit\Framework\TestCase;
 
@@ -30,9 +31,22 @@ class ApiTest extends TestCase
     
     public function testCreatePlInvoice(){
         $invoice = CreatePlInvoice::prepareInvoice();
-        
-        $this->api->createPlInvoice($invoice);
-        
+
+        $response = $this->api->createPlInvoice($invoice);
+        $this->assertEquals($response->getCode(), 0);
+        $this->assertNotEmpty($response->getInvoiceId());
+        $this->assertNotEmpty($response->getMessage());
+    }
+    
+    public function testCreateErrorPlInvoice(){
+        $invoice = CreatePlInvoice::prepareErrorInvoice();
+        try{
+            $this->api->createPlInvoice($invoice);
+        }
+        catch (ApiException $e){
+            $this->assertNotEmpty($e->getCode());
+            $this->assertNotEmpty($e->getMessage());
+        }
     }
     
     
