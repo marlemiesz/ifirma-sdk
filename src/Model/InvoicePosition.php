@@ -16,8 +16,7 @@ class InvoicePosition implements ModelInterface
         private string $unit,
         private VatTypeEnum $vatType = VatTypeEnum::PRC,
         private ?string $pkwiu = null,
-    )
-    {
+    ) {
     }
     
     /**

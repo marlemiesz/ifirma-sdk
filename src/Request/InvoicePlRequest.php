@@ -15,9 +15,7 @@ class InvoicePlRequest implements RequestInterface
     
     public function __construct(
         readonly Invoice $invoice
-    )
-    {
-    
+    ) {
     }
     
     public function getUri(): string
