@@ -143,3 +143,4 @@ class InvoicePosition implements ModelInterface
         ];
     }
 }
+
