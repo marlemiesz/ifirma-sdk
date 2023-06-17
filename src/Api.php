@@ -14,8 +14,7 @@ class Api
     public function __construct(
         readonly string $apiUser,
         readonly string $apiInvoiceKey,
-    )
-    {
+    ) {
         $this->client = new GuzzleClient($apiUser, $apiInvoiceKey);
     }
     

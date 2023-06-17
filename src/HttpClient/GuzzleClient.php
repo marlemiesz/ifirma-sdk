@@ -17,8 +17,7 @@ class GuzzleClient extends HttpClient
         readonly string|null $subscriptionKey = null,
         readonly string|null $expenseKey = null,
         readonly string|null $accountKey = null,
-    )
-    {
+    ) {
     }
     
     public function call(RequestInterface $request)
@@ -45,16 +44,16 @@ class GuzzleClient extends HttpClient
     
     protected function getKey(RequestInterface $request): string
     {
-        if($request->getKeyName() === KeyNameEnum::Invoice) {
+        if ($request->getKeyName() === KeyNameEnum::Invoice) {
             return $this->generateKey($this->invoiceKey);
         }
-        if($request->getKeyName() === KeyNameEnum::Subscription) {
+        if ($request->getKeyName() === KeyNameEnum::Subscription) {
             return $this->generateKey($this->subscriptionKey);
         }
-        if($request->getKeyName() === KeyNameEnum::Expense) {
+        if ($request->getKeyName() === KeyNameEnum::Expense) {
             return $this->generateKey($this->expenseKey);
         }
-        if($request->getKeyName() === KeyNameEnum::Account) {
+        if ($request->getKeyName() === KeyNameEnum::Account) {
             return $this->generateKey($this->accountKey);
         }
         return '';
@@ -73,9 +72,13 @@ class GuzzleClient extends HttpClient
             . chr(hexdec(substr($keyValue, 14, 2)));
     }
     
-    protected function prepareHashHmacSha1(string $url, string $keyName, string $keyValue, ?array $payload = null): string
-    {
-        if($payload) {
+    protected function prepareHashHmacSha1(
+        string $url,
+        string $keyName,
+        string $keyValue,
+        ?array $payload = null
+    ): string {
+        if ($payload) {
             $payload = json_encode($payload);
         }
         return hash_hmac('sha1', $url . $this->userName . $keyName . $payload, $keyValue);

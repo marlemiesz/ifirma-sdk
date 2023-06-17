@@ -30,8 +30,7 @@ class Invoice implements ModelInterface
         private string|null              $signature_issuer = null,
         private string|null              $notes = null,
         private ?string                  $number = null,
-    )
-    {
+    ) {
         $this->validPositions();
     }
     

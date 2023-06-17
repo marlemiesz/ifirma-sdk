@@ -2,7 +2,6 @@
 
 namespace Marlemiesz\Ifirma\Model;
 
-
 class Client implements ModelInterface
 {
     
@@ -18,9 +17,7 @@ class Client implements ModelInterface
         private ?string $uePrefix = null,
         private ?string $nip = null,
         private ?string $street = null,
-    
-    )
-    {
+    ) {
     }
     
     /**

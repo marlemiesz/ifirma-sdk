@@ -2,7 +2,6 @@
 
 namespace Marlemiesz\Ifirma\Request;
 
-
 use Marlemiesz\Ifirma\Enum\KeyNameEnum;
 use Marlemiesz\Ifirma\Enum\MethodEnum;
 use Marlemiesz\Ifirma\Model\ModelInterface;
@@ -20,6 +19,4 @@ interface RequestInterface
     public function getPayload(): ModelInterface | null;
     
     public function prepareResponse(array $response): ResponseInterface;
-    
-    
 }

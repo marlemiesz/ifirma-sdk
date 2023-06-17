@@ -10,9 +10,8 @@ class InvoicePlResponse implements ResponseInterface
         private int $code,
         private string $message,
         private int|null $invoiceId,
-    )
-    {
-        if($this->code !== 0) {
+    ) {
+        if ($this->code !== 0) {
             throw new ApiException($this->message, $this->code);
         }
     }

@@ -19,7 +19,8 @@ enum PaymentMethodEnum
     case tpay;
     case electronicPayment;
     
-    public function getValue():string{
+    public function getValue():string
+    {
         return match ($this) {
             self::cash => 'GTK',
             self::cod => 'POB',
@@ -37,5 +38,4 @@ enum PaymentMethodEnum
             self::electronicPayment => 'ELE',
         };
     }
-    
 }
